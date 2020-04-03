@@ -1,2 +1,4 @@
-# mui
-Modern User Interface
+# MUI
+Modern User Interface library
+
+This project is work in progress.
