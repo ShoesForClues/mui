@@ -16,8 +16,8 @@ return function(lumiere,mui)
 		self.active.value=true
 		self.background_opacity.value=0
 		self.image.value=mui.layout.texture
-		self.image_opacity.value=1
-		self.image_color.value=lmath.color3.new(1,1,1)
+		self.image_opacity.value=mui.layout.button.unselected.opacity
+		self.image_color.value=mui.layout.button.unselected.color
 		self.scale_mode.value=gel.enum.scale_mode.slice
 		self.rect_offset.value=mui.layout.button.unselected.rect_offset
 		self.slice_center.value=mui.layout.button.unselected.slice_center
@@ -35,11 +35,15 @@ return function(lumiere,mui)
 			if selected then
 				self.rect_offset.value=mui.layout.button.selected.rect_offset
 				self.slice_center.value=mui.layout.button.selected.slice_center
+				self.image_opacity.value=mui.layout.button.selected.opacity
+				self.image_color.value=mui.layout.button.selected.color
 				container.position.value=mui.layout.button.selected.container.position
 				container.size.value=mui.layout.button.selected.container.size
 			else
 				self.rect_offset.value=mui.layout.button.unselected.rect_offset
 				self.slice_center.value=mui.layout.button.unselected.slice_center
+				self.image_opacity.value=mui.layout.button.unselected.opacity
+				self.image_color.value=mui.layout.button.unselected.color
 				container.position.value=mui.layout.button.unselected.container.position
 				container.size.value=mui.layout.button.unselected.container.size
 			end

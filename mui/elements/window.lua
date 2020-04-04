@@ -30,8 +30,8 @@ return function(lumiere,mui)
 		top_frame.size.value=lmath.udim2.new(1,0,0,mui.layout.window.top_frame_size)
 		top_frame.background_opacity.value=0
 		top_frame.image.value=mui.layout.texture
-		top_frame.image_opacity.value=1
-		top_frame.image_color.value=lmath.color3.new(1,1,1)
+		top_frame.image_opacity.value=mui.layout.window.focused.top_frame.opacity
+		top_frame.image_color.value=mui.layout.window.focused.top_frame.color
 		top_frame.scale_mode.value=gel.enum.scale_mode.slice
 		top_frame.rect_offset.value=mui.layout.window.focused.top_frame.rect_offset
 		top_frame.slice_center.value=mui.layout.window.focused.top_frame.slice_center
@@ -61,8 +61,8 @@ return function(lumiere,mui)
 		frame.position.value=lmath.udim2.new(0,0,0,mui.layout.window.top_frame_size)
 		frame.background_opacity.value=0
 		frame.image.value=mui.layout.texture
-		frame.image_opacity.value=1
-		frame.image_color.value=lmath.color3.new(1,1,1)
+		frame.image_opacity.value=mui.layout.window.focused.frame.opacity
+		frame.image_color.value=mui.layout.window.focused.frame.color
 		frame.scale_mode.value=gel.enum.scale_mode.slice
 		frame.rect_offset.value=mui.layout.window.focused.frame.rect_offset
 		frame.slice_center.value=mui.layout.window.focused.frame.slice_center
@@ -95,13 +95,21 @@ return function(lumiere,mui)
 				end
 				self.top_frame.rect_offset.value=mui.layout.window.focused.top_frame.rect_offset
 				self.top_frame.slice_center.value=mui.layout.window.focused.top_frame.slice_center
+				self.top_frame.image_color.value=mui.layout.window.focused.top_frame.color
+				self.top_frame.image_opacity.value=mui.layout.window.focused.top_frame.opacity
 				self.frame.rect_offset.value=mui.layout.window.focused.frame.rect_offset
 				self.frame.slice_center.value=mui.layout.window.focused.frame.slice_center
+				self.frame.image_color.value=mui.layout.window.focused.frame.color
+				self.frame.image_opacity.value=mui.layout.window.focused.frame.opacity
 			else
 				self.top_frame.rect_offset.value=mui.layout.window.unfocused.top_frame.rect_offset
 				self.top_frame.slice_center.value=mui.layout.window.unfocused.top_frame.slice_center
+				self.top_frame.image_color.value=mui.layout.window.unfocused.top_frame.color
+				self.top_frame.image_opacity.value=mui.layout.window.unfocused.top_frame.opacity
 				self.frame.rect_offset.value=mui.layout.window.unfocused.frame.rect_offset
 				self.frame.slice_center.value=mui.layout.window.unfocused.frame.slice_center
+				self.frame.image_color.value=mui.layout.window.unfocused.frame.color
+				self.frame.image_opacity.value=mui.layout.window.unfocused.frame.opacity
 			end
 		end,true)
 		

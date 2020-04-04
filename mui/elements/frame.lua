@@ -18,8 +18,8 @@ return function(lumiere,mui)
 		self.active.value=true
 		self.background_opacity.value=0
 		self.image.value=mui.layout.texture
-		self.image_opacity.value=1
-		self.image_color.value=lmath.color3.new(1,1,1)
+		self.image_opacity.value=mui.layout.frame_1.opacity
+		self.image_color.value=mui.layout.frame_1.color
 		self.scale_mode.value=gel.enum.scale_mode.slice
 		self.rect_offset.value=mui.layout.frame_1.rect_offset
 		self.slice_center.value=mui.layout.frame_1.slice_center
@@ -37,16 +37,22 @@ return function(lumiere,mui)
 			if frame_type==1 then
 				self.rect_offset.value=mui.layout.frame_1.rect_offset
 				self.slice_center.value=mui.layout.frame_1.slice_center
+				self.image_opacity.value=mui.layout.frame_1.opacity
+				self.image_color.value=mui.layout.frame_1.color
 				self.container.position.value=mui.layout.frame_1.container.position
 				self.container.size.value=mui.layout.frame_1.container.size
 			elseif frame_type==2 then
 				self.rect_offset.value=mui.layout.frame_2.rect_offset
 				self.slice_center.value=mui.layout.frame_2.slice_center
+				self.image_opacity.value=mui.layout.frame_2.opacity
+				self.image_color.value=mui.layout.frame_2.color
 				self.container.position.value=mui.layout.frame_2.container.position
 				self.container.size.value=mui.layout.frame_2.container.size
 			elseif frame_type==3 then
 				self.rect_offset.value=mui.layout.frame_3.rect_offset
 				self.slice_center.value=mui.layout.frame_3.slice_center
+				self.image_opacity.value=mui.layout.frame_3.opacity
+				self.image_color.value=mui.layout.frame_3.color
 				self.container.position.value=mui.layout.frame_3.container.position
 				self.container.size.value=mui.layout.frame_3.container.size
 			end

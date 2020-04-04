@@ -16,8 +16,8 @@ return function(lumiere,mui)
 		self.active.value=true
 		self.background_opacity.value=0
 		self.image.value=mui.layout.texture
-		self.image_opacity.value=1
-		self.image_color.value=lmath.color3.new(1,1,1)
+		self.image_opacity.value=mui.layout.text_box.unfocused.opacity
+		self.image_color.value=mui.layout.text_box.unfocused.color
 		self.scale_mode.value=gel.enum.scale_mode.slice
 		self.rect_offset.value=mui.layout.text_box.unfocused.rect_offset
 		self.slice_center.value=mui.layout.text_box.unfocused.slice_center
@@ -47,9 +47,13 @@ return function(lumiere,mui)
 			if focused then
 				self.rect_offset.value=mui.layout.text_box.focused.rect_offset
 				self.slice_center.value=mui.layout.text_box.focused.slice_center
+				self.image_opacity.value=mui.layout.text_box.focused.opacity
+				self.image_color.value=mui.layout.text_box.focused.color
 			else
 				self.rect_offset.value=mui.layout.text_box.unfocused.rect_offset
 				self.slice_center.value=mui.layout.text_box.unfocused.slice_center
+				self.image_opacity.value=mui.layout.text_box.unfocused.opacity
+				self.image_color.value=mui.layout.text_box.unfocused.color
 			end
 		end,true)
 	end
