@@ -24,62 +24,57 @@ return function(lumiere,mui)
 		self.min_height = eztask.property.new(0)
 		self.icon       = eztask.property.new()
 		
-		local top_frame=gel.new("image_element")
-		top_frame.name.value="top_frame"
-		top_frame.visible.value=true
-		top_frame.size.value=lmath.udim2.new(1,0,0,mui.layout.window.top_frame_size)
-		top_frame.background_opacity.value=0
-		top_frame.image.value=mui.layout.texture
-		top_frame.image_opacity.value=mui.layout.window.focused.top_frame.opacity
-		top_frame.image_color.value=mui.layout.window.focused.top_frame.color
-		top_frame.scale_mode.value=gel.enum.scale_mode.slice
-		top_frame.rect_offset.value=mui.layout.window.focused.top_frame.rect_offset
-		top_frame.slice_center.value=mui.layout.window.focused.top_frame.slice_center
-		top_frame.clip.value=true
-		top_frame.parent.value=self
+		self.top_frame=gel.new("image_element")
+		:set("name","top_frame")
+		:set("visible",true)
+		:set("size",lmath.udim2.new(1,0,0,mui.layout.window.top_frame_size))
+		:set("background_opacity",0)
+		:set("image",mui.layout.texture)
+		:set("image_opacity",mui.layout.window.focused.top_frame.opacity)
+		:set("image_color",mui.layout.window.focused.top_frame.color)
+		:set("scale_mode",gel.enum.scale_mode.slice)
+		:set("rect_offset",mui.layout.window.focused.top_frame.rect_offset)
+		:set("slice_center",mui.layout.window.focused.top_frame.slice_center)
+		:set("clip",true)
+		:set("parent",self)
 		
-		local title=gel.new("text_element")
-		title.name.value="title"
-		title.visible.value=true
-		title.position.value=mui.layout.window.focused.title.position
-		title.size.value=mui.layout.window.focused.title.size
-		title.background_opacity.value=0
-		title.font.value=mui.layout.font[mui.layout.window.focused.title.font]
-		title.text.value=self.name.value
-		title.text_size.value=mui.layout.window.focused.title.text_size
-		title.text_x_alignment.value=gel.enum.alignment.x.left
-		title.text_y_alignment.value=gel.enum.alignment.y.center
-		title.text_opacity.value=1
-		title.text_color.value=lmath.color3.new(1,1,1)
-		title.filter_mode.value=gel.enum.filter_mode.nearest
-		title.parent.value=top_frame
+		self.title=gel.new("text_element")
+		:set("name","title")
+		:set("visible",true)
+		:set("position",mui.layout.window.focused.title.position)
+		:set("size",mui.layout.window.focused.title.size)
+		:set("background_opacity",0)
+		:set("font",mui.layout.font[mui.layout.window.focused.title.font])
+		:set("text",self.name.value)
+		:set("text_size",mui.layout.window.focused.title.text_size)
+		:set("text_x_alignment",gel.enum.alignment.x.left)
+		:set("text_y_alignment",gel.enum.alignment.y.center)
+		:set("text_opacity",1)
+		:set("text_color",lmath.color3.new(1,1,1))
+		:set("filter_mode",gel.enum.filter_mode.nearest)
+		:set("parent",self.top_frame)
 		
-		local frame=gel.new("image_element")
-		frame.name.value="frame"
-		frame.visible.value=true
-		frame.size.value=lmath.udim2.new(1,0,1,-mui.layout.window.top_frame_size)
-		frame.position.value=lmath.udim2.new(0,0,0,mui.layout.window.top_frame_size)
-		frame.background_opacity.value=0
-		frame.image.value=mui.layout.texture
-		frame.image_opacity.value=mui.layout.window.focused.frame.opacity
-		frame.image_color.value=mui.layout.window.focused.frame.color
-		frame.scale_mode.value=gel.enum.scale_mode.slice
-		frame.rect_offset.value=mui.layout.window.focused.frame.rect_offset
-		frame.slice_center.value=mui.layout.window.focused.frame.slice_center
-		frame.parent.value=self
+		self.frame=gel.new("image_element")
+		:set("name","frame")
+		:set("visible",true)
+		:set("size",lmath.udim2.new(1,0,1,-mui.layout.window.top_frame_size))
+		:set("position",lmath.udim2.new(0,0,0,mui.layout.window.top_frame_size))
+		:set("background_opacity",0)
+		:set("image",mui.layout.texture)
+		:set("image_opacity",mui.layout.window.focused.frame.opactity)
+		:set("image_color",mui.layout.window.focused.frame.color)
+		:set("scale_mode",gel.enum.scale_mode.slice)
+		:set("rect_offset",mui.layout.window.focused.frame.rect_offset)
+		:set("slice_center",mui.layout.window.focused.frame.slice_center)
+		:set("parent",self)
 		
-		local container=gel.new("element")
-		container.name.value="container"
-		container.visible.value=true
-		container.clip.value=true
-		container.position.value=mui.layout.window.focused.container.position
-		container.size.value=mui.layout.window.focused.container.size
-		container.parent.value=self
-		
-		self.top_frame=top_frame
-		self.title=title
-		self.frame=frame
-		self.container=container
+		self.container=gel.new("element")
+		:set("name","container")
+		:set("visible",true)
+		:set("clip",true)
+		:set("position",mui.layout.window.focused.container.position)
+		:set("size",mui.layout.window.focused.container.size)
+		:set("parent",self)
 		
 		self.drag_event=nil
 		self.drag_release_event=nil
@@ -121,7 +116,7 @@ return function(lumiere,mui)
 			self.focused.value=true
 		end,true)
 		
-		top_frame.pressed:attach(function()
+		self.top_frame.pressed:attach(function()
 			if self.drag_event then
 				return
 			end
@@ -155,7 +150,7 @@ return function(lumiere,mui)
 		end,true)
 		
 		self.name:attach(function(_,name)
-			title.text.value=name
+			self.title.text.value=name
 		end,true)
 		
 		self.parent:attach(function(_,parent)

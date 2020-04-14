@@ -13,23 +13,30 @@ return function(lumiere,mui)
 	function text_button:new()
 		text_button.super.new(self)
 		
-		local text_element=gel.new("text_element")
-		text_element.name.value="text_element"
-		text_element.visible.value=true
-		text_element.size.value=lmath.udim2.new(1,0,1,0)
-		text_element.background_opacity.value=0
-		text_element.text.value="Button"
-		text_element.text_color.value=mui.layout.text_button.unselected.text_color
-		text_element.text_opacity.value=mui.layout.text_button.unselected.text_opacity
-		text_element.text_size.value=mui.layout.text_button.unselected.text_size
-		text_element.font.value=mui.layout.font.regular
-		text_element.text_x_alignment.value=gel.enum.alignment.x.center
-		text_element.text_y_alignment.value=gel.enum.alignment.y.center
-		text_element.text_wrapped.value=true
-		text_element.clip.value=true
-		text_element.parent.value=self.container
+		self.text_element=gel.new("text_element")
+		:set("name","text_element")
+		:set("visible",true)
+		:set("size",lmath.udim2.new(1,0,1,0))
+		:set("background_opacity",0)
+		:set("text","Button")
+		:set("text_color",mui.layout.text_button.unselected.text_color)
+		:set("text_opacity",mui.layout.text_button.unselected.text_opacity)
+		:set("text_size",mui.layout.text_button.unselected.text_size)
+		:set("font",mui.layout.font.regular)
+		:set("text_x_alignment",gel.enum.alignment.x.center)
+		:set("text_y_alignment",gel.enum.alignment.y.center)
+		:set("text_wrapped",true)
+		:set("clip",true)
+		:set("parent",self.container)
 		
-		self.text_element=text_element
+		self.text             = self.text_element.text
+		self.text_color       = self.text_element.text_color
+		self.text_opacity     = self.text_element.text_opacity
+		self.text_size        = self.text_element.text_size
+		self.font             = self.text_element.font
+		self.text_x_alignment = self.text_element.text_x_alignment
+		self.text_y_alignment = self.text_element.text_y_alignment
+		self.text_wrapped     = self.text_element.text_wrapped
 	end
 	
 	function text_button:delete()

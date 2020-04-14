@@ -24,14 +24,13 @@ return function(lumiere,mui)
 		self.rect_offset.value=mui.layout.frame_1.rect_offset
 		self.slice_center.value=mui.layout.frame_1.slice_center
 		
-		local container=gel.new("element")
-		container.name.value="container"
-		container.visible.value=true
-		container.clip.value=true
-		container.position.value=mui.layout.frame_1.container.position
-		container.size.value=mui.layout.frame_1.container.size
-		container.parent.value=self
-		self.container=container
+		self.container=gel.new("element")
+		:set("name","container")
+		:set("visible",true)
+		:set("clip",true)
+		:set("position",mui.layout.frame_1.container.position)
+		:set("size",mui.layout.frame_1.container.size)
+		:set("parent",self)
 		
 		self.frame_type:attach(function(_,frame_type)
 			if frame_type==1 then

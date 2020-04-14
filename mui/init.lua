@@ -40,17 +40,34 @@ return function(lumiere,lib_dir)
 	--Functions
 	function mui.wrap(class_name,method,wrap)
 		local class=mui.class[class_name]
-		assert(class,"No class named "..tostring(class_name))
-		assert(class[method],("No method named %s in class %s"):muiat(method,class))
-		assert(wrap,"Cannot wrap method with nil")
+		
+		assert(
+			class,
+			"No class named "..tostring(class_name)
+		)
+		assert(
+			class[method],
+			("No method named %s in class %s"):format(method,class)
+		)
+		assert(
+			wrap,
+			"Cannot wrap method with nil"
+		)
+		
 		local _method=class[method]
 		class[method]=function(...) _method(...);wrap(...) end
+		
 		return class
 	end
 	
 	function mui.new(class_name)
 		local class=mui.class[class_name]
-		assert(class,"No class named "..tostring(class_name))
+		
+		assert(
+			class,
+			"No class named "..tostring(class_name)
+		)
+		
 		return class()
 	end
 	
@@ -71,7 +88,10 @@ return function(lumiere,lib_dir)
 	end
 	
 	function mui:init(layout_dir)
-		assert(layout_dir,"Cannot initialize without a layout!")
+		assert(
+			layout_dir,
+			"Cannot initialize without a layout!"
+		)
 		
 		local layout=lumiere.platform.file.require(layout_dir..".layout")(lumiere)
 		
@@ -89,6 +109,7 @@ return function(lumiere,lib_dir)
 	mui.class.button      = lumiere.platform.file.require(lib_dir..".elements.button")(lumiere,mui)
 	mui.class.text_button = lumiere.platform.file.require(lib_dir..".elements.text_button")(lumiere,mui)
 	mui.class.text_box    = lumiere.platform.file.require(lib_dir..".elements.text_box")(lumiere,mui)
+	mui.class.check_box   = lumiere.platform.file.require(lib_dir..".elements.check_box")(lumiere,mui)
 	mui.class.window      = lumiere.platform.file.require(lib_dir..".elements.window")(lumiere,mui)
 	
 	return mui
