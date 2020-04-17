@@ -31,7 +31,7 @@ return function(lumiere,lib_dir)
 	local gel    = lumiere:depend "gel"
 	
 	local mui={
-		_version = {0,0,4},
+		_version = {0,0,5},
 		enum     = {},
 		class    = {},
 		layout   = nil

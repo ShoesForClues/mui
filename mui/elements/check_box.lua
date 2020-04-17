@@ -4,7 +4,7 @@ return function(lumiere,mui)
 	local class  = lumiere:depend "class"
 	local gel    = lumiere:depend "gel"
 	
-	local check_box=gel.class.image_element:extend()
+	local check_box=gel.class.element:extend()
 	
 	function check_box:__tostring()
 		return "check_box"
@@ -13,73 +13,76 @@ return function(lumiere,mui)
 	function check_box:new()
 		check_box.super.new(self)
 		
-		self.selected_color         = eztask.property.new(mui.layout.check_box.selected.color)
-		self.selected_opacity       = eztask.property.new(mui.layout.check_box.selected.opacity)
-		self.selected_check_color   = eztask.property.new(mui.layout.check_box.selected.check.color)
-		self.selected_check_opacity = eztask.property.new(mui.layout.check_box.selected.check.opacity)
+		self.checked = eztask.property.new(false)
 		
-		self.unselected_color       = eztask.property.new(mui.layout.check_box.unselected.color)
-		self.unselected_opacity     = eztask.property.new(mui.layout.check_box.unselected.opacity)
-		self.selected_check_color   = eztask.property.new(mui.layout.check_box.unselected.check.color)
-		self.selected_check_opacity = eztask.property.new(mui.layout.check_box.unselected.check.opacity)
-		
-		self.active.value=true
-		self.background_opacity.value=0
-		self.image.value=mui.layout.texture
-		self.image_opacity.value=self.unselected_opacity.value
-		self.image_color.value=self.unselected_color.value
-		self.scale_mode.value=gel.enum.scale_mode.slice
-		self.rect_offset.value=mui.layout.button.unselected.rect_offset
-		self.slice_center.value=mui.layout.button.unselected.slice_center
-		
-		self.container=gel.new("element")
-		:set("name","container")
+		self.box=gel.new("image_element")
+		:set("name","box")
 		:set("visible",true)
-		:set("clip",true)
-		:set("position",mui.layout.button.unselected.container.position)
-		:set("size",mui.layout.button.unselected.container.size)
+		:set("active",true)
+		:set("size",lmath.udim2.new(
+			0,mui.layout.check_box.unselected.sprite_size.x,
+			0,mui.layout.check_box.unselected.sprite_size.y
+		))
+		:set("rect_offset",mui.layout.check_box.unselected.rect_offset)
+		:set("image",mui.layout.texture)
+		:set("image_color",mui.layout.check_box.unselected.color)
+		:set("image_opacity",mui.layout.check_box.unselected.opacity)
 		:set("parent",self)
 		
+		self.text_element=gel.new("text_element")
+		:set("visible",true)
+		:set("size",lmath.udim2.new(
+			1,-mui.layout.check_box.unselected.sprite_size.x,
+			1,0
+		))
+		:set("position",lmath.udim2.new(
+			0,mui.layout.check_box.unselected.sprite_size.x,
+			0,0
+		))
+		:set("background_opacity",0)
+		:set("text","Checkbox")
+		:set("font",mui.layout.font.regular)
+		:set("text_x_alignment",gel.enum.alignment.x.left)
+		:set("text_y_alignment",gel.enum.alignment.y.center)
+		:set("text_color",lmath.color3.new(0,0,0))
+		:set("text_opacity",1)
+		:set("parent",self)
+		
+		self.text             = self.text_element.text
+		self.text_color       = self.text_element.text_color
+		self.text_opacity     = self.text_element.text_opacity
+		self.text_size        = self.text_element.text_size
+		self.font             = self.text_element.font
+		self.text_x_alignment = self.text_element.text_x_alignment
+		self.text_y_alignment = self.text_element.text_y_alignment
+		self.text_wrapped     = self.text_element.text_wrapped
+		self.multiline        = self.text_element.multiline
+		
 		self.update_appearance=function()
-			if self.selected.value then
-				self.rect_offset.value=mui.layout.button.selected.rect_offset
-				self.slice_center.value=mui.layout.button.selected.slice_center
-				self.image_opacity.value=self.selected_opacity.value
-				self.image_color.value=self.selected_color.value
-				container.position.value=mui.layout.button.selected.container.position
-				container.size.value=mui.layout.button.selected.container.size
+			if self.checked.value then
+				self.box:set("rect_offset",mui.layout.check_box.selected.rect_offset)
+				:set("image_color",mui.layout.check_box.selected.color)
+				:set("image_opacity",mui.layout.check_box.selected.opacity)
 			else
-				self.rect_offset.value=mui.layout.button.unselected.rect_offset
-				self.slice_center.value=mui.layout.button.unselected.slice_center
-				self.image_opacity.value=self.unselected_opacity.value
-				self.image_color.value=self.unselected_color.value
-				container.position.value=mui.layout.button.unselected.container.position
-				container.size.value=mui.layout.button.unselected.container.size
+				self.box:set("rect_offset",mui.layout.check_box.unselected.rect_offset)
+				:set("image_color",mui.layout.check_box.unselected.color)
+				:set("image_opacity",mui.layout.check_box.unselected.opacity)
 			end
 		end
 		
-		self.selected:attach(self.update_appearance,true)
-		self.selected_color:attach(self.update_appearance,true)
-		self.selected_opacity:attach(self.update_appearance,true)
-		self.selected_container_color:attach(self.update_appearance,true)
-		self.selected_container_opacity:attach(self.update_appearance,true)
-		self.unselected_color:attach(self.update_appearance,true)
-		self.unselected_opacity:attach(self.update_appearance,true)
-		self.unselected_container_color:attach(self.update_appearance,true)
-		self.unselected_container_opacity:attach(self.update_appearance,true)
+		self.checked:attach(self.update_appearance,true)
+		
+		self.box.selected:attach(function(_,selected)
+			if selected then
+				self.checked.value=not self.checked.value
+			end
+		end,true)
 	end
 	
 	function check_box:delete()
 		check_box.super.delete(self)
 		
-		self.selected_color:detach()
-		self.selected_opacity:detach()
-		self.selected_container_color:detach()
-		self.selected_container_opacity:detach()
-		self.unselected_color:detach()
-		self.unselected_opacity:detach()
-		self.unselected_container_color:detach()
-		self.unselected_container_opacity:detach()
+		self.checked:detach()
 	end
 	
 	return check_box

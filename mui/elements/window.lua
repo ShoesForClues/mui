@@ -82,9 +82,18 @@ return function(lumiere,mui)
 		self.focused:attach(function(_,focused)
 			if focused then
 				if self.parent.value then
+					--[[
 					for _,neighbor in pairs(self.parent.value.children) do
 						if neighbor:is(window) and neighbor~=self then
 							neighbor.focused.value=false
+						end
+					end
+					]]
+					for i=#self.parent.value.children,1,-1 do
+						local neighbor=self.parent.value.children[i]
+						if neighbor:is(window) and neighbor~=self then
+							neighbor.focused.value=false
+							break
 						end
 					end
 				end
