@@ -105,12 +105,13 @@ return function(lumiere,lib_dir)
 	end
 	
 	--Elements
-	mui.class.frame       = lumiere.platform.file.require(lib_dir..".elements.frame")(lumiere,mui)
-	mui.class.button      = lumiere.platform.file.require(lib_dir..".elements.button")(lumiere,mui)
-	mui.class.text_button = lumiere.platform.file.require(lib_dir..".elements.text_button")(lumiere,mui)
-	mui.class.text_box    = lumiere.platform.file.require(lib_dir..".elements.text_box")(lumiere,mui)
-	mui.class.check_box   = lumiere.platform.file.require(lib_dir..".elements.check_box")(lumiere,mui)
-	mui.class.window      = lumiere.platform.file.require(lib_dir..".elements.window")(lumiere,mui)
+	mui.class.frame        = lumiere.platform.file.require(lib_dir..".elements.frame")(lumiere,mui)
+	mui.class.button       = lumiere.platform.file.require(lib_dir..".elements.button")(lumiere,mui)
+	mui.class.text_button  = lumiere.platform.file.require(lib_dir..".elements.text_button")(lumiere,mui)
+	mui.class.text_box     = lumiere.platform.file.require(lib_dir..".elements.text_box")(lumiere,mui)
+	mui.class.check_box    = lumiere.platform.file.require(lib_dir..".elements.check_box")(lumiere,mui)
+	mui.class.radio_button = lumiere.platform.file.require(lib_dir..".elements.radio_button")(lumiere,mui)
+	mui.class.window       = lumiere.platform.file.require(lib_dir..".elements.window")(lumiere,mui)
 	
 	return mui
 end

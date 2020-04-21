@@ -23,20 +23,37 @@ return function(lumiere,mui)
 			0,mui.layout.check_box.unselected.sprite_size.x,
 			0,mui.layout.check_box.unselected.sprite_size.y
 		))
+		:set("background_opacity",0)
 		:set("rect_offset",mui.layout.check_box.unselected.rect_offset)
 		:set("image",mui.layout.texture)
 		:set("image_color",mui.layout.check_box.unselected.color)
 		:set("image_opacity",mui.layout.check_box.unselected.opacity)
 		:set("parent",self)
 		
+		self.mark=gel.new("image_element")
+		:set("name","mark")
+		:set("visible",true)
+		:set("anchor_point",lmath.vector2.new(0.5,0.5))
+		:set("position",lmath.udim2.new(0.5,0,0.5,0))
+		:set("size",lmath.udim2.new(
+			0,mui.layout.check_box.unselected.mark.sprite_size.x,
+			0,mui.layout.check_box.unselected.mark.sprite_size.y
+		))
+		:set("background_opacity",0)
+		:set("rect_offset",mui.layout.check_box.unselected.mark.rect_offset)
+		:set("image",mui.layout.texture)
+		:set("image_color",mui.layout.check_box.unselected.mark.color)
+		:set("image_opacity",mui.layout.check_box.unselected.mark.opacity)
+		:set("parent",self.box)
+		
 		self.text_element=gel.new("text_element")
 		:set("visible",true)
 		:set("size",lmath.udim2.new(
-			1,-mui.layout.check_box.unselected.sprite_size.x,
+			1,-mui.layout.check_box.unselected.sprite_size.x-5,
 			1,0
 		))
 		:set("position",lmath.udim2.new(
-			0,mui.layout.check_box.unselected.sprite_size.x,
+			0,mui.layout.check_box.unselected.sprite_size.x+5,
 			0,0
 		))
 		:set("background_opacity",0)
@@ -63,10 +80,18 @@ return function(lumiere,mui)
 				self.box:set("rect_offset",mui.layout.check_box.selected.rect_offset)
 				:set("image_color",mui.layout.check_box.selected.color)
 				:set("image_opacity",mui.layout.check_box.selected.opacity)
+				
+				self.mark:set("rect_offset",mui.layout.check_box.selected.mark.rect_offset)
+				:set("image_color",mui.layout.check_box.selected.mark.color)
+				:set("image_opacity",mui.layout.check_box.selected.mark.opacity)
 			else
 				self.box:set("rect_offset",mui.layout.check_box.unselected.rect_offset)
 				:set("image_color",mui.layout.check_box.unselected.color)
 				:set("image_opacity",mui.layout.check_box.unselected.opacity)
+				
+				self.mark:set("rect_offset",mui.layout.check_box.unselected.mark.rect_offset)
+				:set("image_color",mui.layout.check_box.unselected.mark.color)
+				:set("image_opacity",mui.layout.check_box.unselected.mark.opacity)
 			end
 		end
 		
