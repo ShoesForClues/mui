@@ -15,19 +15,19 @@ return function(lumiere,mui)
 		
 		self.checked = eztask.property.new(false)
 		
-		self.box=gel.new("image_element")
-		:set("name","box")
+		self.frame=gel.new("image_element")
+		:set("name","frame")
 		:set("visible",true)
 		:set("active",true)
 		:set("size",lmath.udim2.new(
-			0,mui.layout.radio_button.unselected.sprite_size.x,
-			0,mui.layout.radio_button.unselected.sprite_size.y
+			0,mui.layout.radio_button.unselected.frame.sprite_size.x,
+			0,mui.layout.radio_button.unselected.frame.sprite_size.y
 		))
 		:set("background_opacity",0)
-		:set("rect_offset",mui.layout.radio_button.unselected.rect_offset)
+		:set("rect_offset",mui.layout.radio_button.unselected.frame.rect_offset)
 		:set("image",mui.layout.texture)
-		:set("image_color",mui.layout.radio_button.unselected.color)
-		:set("image_opacity",mui.layout.radio_button.unselected.opacity)
+		:set("image_color",mui.layout.radio_button.unselected.frame.color)
+		:set("image_opacity",mui.layout.radio_button.unselected.frame.opacity)
 		:set("parent",self)
 		
 		self.mark=gel.new("image_element")
@@ -44,46 +44,52 @@ return function(lumiere,mui)
 		:set("image",mui.layout.texture)
 		:set("image_color",mui.layout.radio_button.unselected.mark.color)
 		:set("image_opacity",mui.layout.radio_button.unselected.mark.opacity)
-		:set("parent",self.box)
+		:set("parent",self.frame)
 		
-		self.text_element=gel.new("text_element")
+		self.label=gel.new("text_element")
 		:set("visible",true)
 		:set("size",lmath.udim2.new(
-			1,-mui.layout.radio_button.unselected.sprite_size.x-5,
-			1,0
+			1,-mui.layout.radio_button.unselected.frame.sprite_size.x-5,
+			0,mui.layout.radio_button.unselected.frame.sprite_size.y
 		))
+		:set("anchor_point",lmath.vector2.new(0,0.5))
 		:set("position",lmath.udim2.new(
-			0,mui.layout.radio_button.unselected.sprite_size.x+5,
-			0,0
+			0,mui.layout.radio_button.unselected.frame.sprite_size.x+5,
+			0.5,0
 		))
 		:set("background_opacity",0)
 		:set("text","Radio Button")
 		:set("font",mui.layout.font.regular)
 		:set("text_x_alignment",gel.enum.alignment.x.left)
 		:set("text_y_alignment",gel.enum.alignment.y.center)
-		:set("text_color",lmath.color3.new(0,0,0))
-		:set("text_opacity",1)
-		:set("parent",self)
+		:set("text_size",mui.layout.radio_button.unselected.label.text_size)
+		:set("text_color",mui.layout.radio_button.unselected.label.text_color)
+		:set("text_opacity",mui.layout.radio_button.unselected.label.text_opacity)
+		:set("parent",self.frame)
 		
-		self.text             = self.text_element.text
-		self.text_color       = self.text_element.text_color
-		self.text_opacity     = self.text_element.text_opacity
-		self.text_size        = self.text_element.text_size
-		self.font             = self.text_element.font
-		self.text_x_alignment = self.text_element.text_x_alignment
-		self.text_y_alignment = self.text_element.text_y_alignment
-		self.text_wrapped     = self.text_element.text_wrapped
-		self.multiline        = self.text_element.multiline
+		self.text             = self.label.text
+		self.text_color       = self.label.text_color
+		self.text_opacity     = self.label.text_opacity
+		self.text_size        = self.label.text_size
+		self.font             = self.label.font
+		self.text_x_alignment = self.label.text_x_alignment
+		self.text_y_alignment = self.label.text_y_alignment
+		self.text_wrapped     = self.label.text_wrapped
+		self.multiline        = self.label.multiline
 		
 		self.update_appearance=function()
 			if self.checked.value then
-				self.box:set("rect_offset",mui.layout.radio_button.selected.rect_offset)
-				:set("image_color",mui.layout.radio_button.selected.color)
-				:set("image_opacity",mui.layout.radio_button.selected.opacity)
+				self.frame:set("rect_offset",mui.layout.radio_button.selected.frame.rect_offset)
+				:set("image_color",mui.layout.radio_button.selected.frame.color)
+				:set("image_opacity",mui.layout.radio_button.selected.frame.opacity)
 				
 				self.mark:set("rect_offset",mui.layout.radio_button.selected.mark.rect_offset)
 				:set("image_color",mui.layout.radio_button.selected.mark.color)
 				:set("image_opacity",mui.layout.radio_button.selected.mark.opacity)
+				
+				self.label:set("text_size",mui.layout.radio_button.selected.label.text_size)
+				:set("text_color",mui.layout.radio_button.selected.label.text_color)
+				:set("text_opacity",mui.layout.radio_button.selected.label.text_opacity)
 				
 				if self.parent.value then
 					for _,neighbor in pairs(self.parent.value.children) do
@@ -93,19 +99,23 @@ return function(lumiere,mui)
 					end
 				end
 			else
-				self.box:set("rect_offset",mui.layout.radio_button.unselected.rect_offset)
-				:set("image_color",mui.layout.radio_button.unselected.color)
-				:set("image_opacity",mui.layout.radio_button.unselected.opacity)
+				self.frame:set("rect_offset",mui.layout.radio_button.unselected.frame.rect_offset)
+				:set("image_color",mui.layout.radio_button.unselected.frame.color)
+				:set("image_opacity",mui.layout.radio_button.unselected.frame.opacity)
 				
 				self.mark:set("rect_offset",mui.layout.radio_button.unselected.mark.rect_offset)
 				:set("image_color",mui.layout.radio_button.unselected.mark.color)
 				:set("image_opacity",mui.layout.radio_button.unselected.mark.opacity)
+				
+				self.label:set("text_size",mui.layout.radio_button.unselected.label.text_size)
+				:set("text_color",mui.layout.radio_button.unselected.label.text_color)
+				:set("text_opacity",mui.layout.radio_button.unselected.label.text_opacity)
 			end
 		end
 		
 		self.checked:attach(self.update_appearance,true)
 		
-		self.box.selected:attach(function(_,selected)
+		self.frame.selected:attach(function(_,selected)
 			if selected then
 				self.checked.value=not self.checked.value
 			end
