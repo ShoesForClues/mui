@@ -13,14 +13,14 @@ return function(lumiere,mui)
 	function text_box:new()
 		text_box.super.new(self)
 		
-		self.active.value=true
-		self.background_opacity.value=0
-		self.image.value=mui.layout.texture
-		self.image_opacity.value=mui.layout.text_box.unfocused.opacity
-		self.image_color.value=mui.layout.text_box.unfocused.color
-		self.scale_mode.value=gel.enum.scale_mode.slice
-		self.rect_offset.value=mui.layout.text_box.unfocused.rect_offset
-		self.slice_center.value=mui.layout.text_box.unfocused.slice_center
+		self:set("active",true)
+		:set("background_opacity",0)
+		:set("image",mui.layout.texture)
+		:set("image_opacity",mui.layout.text_box.unfocused.opacity)
+		:set("image_color",mui.layout.text_box.unfocused.color)
+		:set("scale_mode",gel.enum.scale_mode.slice)
+		:set("rect_offset",mui.layout.text_box.unfocused.rect_offset)
+		:set("slice_center",mui.layout.text_box.unfocused.slice_center)
 		
 		self.text_element=gel.new("text_element")
 		:set("name","text_element")
@@ -50,6 +50,7 @@ return function(lumiere,mui)
 		self.text_x_alignment = self.text_element.text_x_alignment
 		self.text_y_alignment = self.text_element.text_y_alignment
 		self.text_wrapped     = self.text_element.text_wrapped
+		self.multiline        = self.text_element.multiline
 		
 		self.text_element.focused:attach(function(_,focused)
 			if focused then

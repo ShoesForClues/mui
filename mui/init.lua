@@ -31,7 +31,7 @@ return function(lumiere,lib_dir)
 	local gel    = lumiere:depend "gel"
 	
 	local mui={
-		_version = {0,0,5},
+		_version = {0,0,6},
 		enum     = {},
 		class    = {},
 		layout   = nil
@@ -41,18 +41,9 @@ return function(lumiere,lib_dir)
 	function mui.wrap(class_name,method,wrap)
 		local class=mui.class[class_name]
 		
-		assert(
-			class,
-			"No class named "..tostring(class_name)
-		)
-		assert(
-			class[method],
-			("No method named %s in class %s"):format(method,class)
-		)
-		assert(
-			wrap,
-			"Cannot wrap method with nil"
-		)
+		assert(class,"No class named "..tostring(class_name))
+		assert(wrap,"Cannot wrap method with nil")
+		assert(class[method],("No method named %s in class %s"):format(method,class))
 		
 		local _method=class[method]
 		class[method]=function(...) _method(...);wrap(...) end
@@ -63,10 +54,7 @@ return function(lumiere,lib_dir)
 	function mui.new(class_name)
 		local class=mui.class[class_name]
 		
-		assert(
-			class,
-			"No class named "..tostring(class_name)
-		)
+		assert(class,"No class named "..tostring(class_name))
 		
 		return class()
 	end
@@ -88,10 +76,7 @@ return function(lumiere,lib_dir)
 	end
 	
 	function mui:init(layout_dir)
-		assert(
-			layout_dir,
-			"Cannot initialize without a layout!"
-		)
+		assert(layout_dir,"Cannot initialize without a layout!")
 		
 		local layout=lumiere.platform.file.require(layout_dir..".layout")(lumiere)
 		

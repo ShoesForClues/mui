@@ -13,8 +13,8 @@ return function(lumiere,mui)
 	function window:new()
 		window.super.new(self)
 		
-		self.clip.value=true
-		self.active.value=true
+		self:set("clip",true)
+		:set("active",true)
 		
 		self.resizable  = eztask.property.new(false)
 		self.draggable  = eztask.property.new(true)

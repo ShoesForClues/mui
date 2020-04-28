@@ -15,14 +15,14 @@ return function(lumiere,mui)
 		
 		self.frame_type = eztask.property.new(1)
 		
-		self.active.value=true
-		self.background_opacity.value=0
-		self.image.value=mui.layout.texture
-		self.image_opacity.value=mui.layout.frame_1.opacity
-		self.image_color.value=mui.layout.frame_1.color
-		self.scale_mode.value=gel.enum.scale_mode.slice
-		self.rect_offset.value=mui.layout.frame_1.rect_offset
-		self.slice_center.value=mui.layout.frame_1.slice_center
+		self:set("active",true)
+		:set("background_opacity",0)
+		:set("image",mui.layout.texture)
+		:set("image_opacity",mui.layout.frame_1.opacity)
+		:set("image_color",mui.layout.frame_1.color)
+		:set("scale_mode",gel.enum.scale_mode.slice)
+		:set("rect_offset",mui.layout.frame_1.rect_offset)
+		:set("slice_center",mui.layout.frame_1.slice_center)
 		
 		self.container=gel.new("element")
 		:set("name","container")
@@ -34,33 +34,34 @@ return function(lumiere,mui)
 		
 		self.frame_type:attach(function(_,frame_type)
 			if frame_type==1 then
-				self.rect_offset.value=mui.layout.frame_1.rect_offset
-				self.slice_center.value=mui.layout.frame_1.slice_center
-				self.image_opacity.value=mui.layout.frame_1.opacity
-				self.image_color.value=mui.layout.frame_1.color
-				self.container.position.value=mui.layout.frame_1.container.position
-				self.container.size.value=mui.layout.frame_1.container.size
+				self:set("rect_offset",mui.layout.frame_1.rect_offset)
+				:set("slice_center",mui.layout.frame_1.slice_center)
+				:set("image_opacity",mui.layout.frame_1.opacity)
+				:set("image_color",mui.layout.frame_1.color)
+				
+				self.container:set("position",mui.layout.frame_2.container.position)
+				:set("size",mui.layout.frame_2.container.size)
 			elseif frame_type==2 then
-				self.rect_offset.value=mui.layout.frame_2.rect_offset
-				self.slice_center.value=mui.layout.frame_2.slice_center
-				self.image_opacity.value=mui.layout.frame_2.opacity
-				self.image_color.value=mui.layout.frame_2.color
-				self.container.position.value=mui.layout.frame_2.container.position
-				self.container.size.value=mui.layout.frame_2.container.size
+				self:set("rect_offset",mui.layout.frame_2.rect_offset)
+				:set("slice_center",mui.layout.frame_2.slice_center)
+				:set("image_opacity",mui.layout.frame_2.opacity)
+				:set("image_color",mui.layout.frame_2.color)
+				
+				self.container:set("position",mui.layout.frame_3.container.position)
+				:set("size",mui.layout.frame_3.container.size)
 			elseif frame_type==3 then
-				self.rect_offset.value=mui.layout.frame_3.rect_offset
-				self.slice_center.value=mui.layout.frame_3.slice_center
-				self.image_opacity.value=mui.layout.frame_3.opacity
-				self.image_color.value=mui.layout.frame_3.color
-				self.container.position.value=mui.layout.frame_3.container.position
-				self.container.size.value=mui.layout.frame_3.container.size
+				self:set("rect_offset",mui.layout.frame_3.rect_offset)
+				:set("slice_center",mui.layout.frame_3.slice_center)
+				:set("image_opacity",mui.layout.frame_3.opacity)
+				:set("image_color",mui.layout.frame_3.color)
+				
+				self.container:set("position",mui.layout.frame_3.container.position)
+				:set("size",mui.layout.frame_3.container.size)
 			end
 		end,true)
 		
 		self.child_added:attach(function(_,object)
-			if object:is(gel.class.element) then
-				object.parent.value=self.container
-			end
+			object.parent.value=self.container
 		end,true)
 	end
 	

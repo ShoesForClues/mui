@@ -13,12 +13,17 @@ return function(lumiere,mui)
 	function check_box:new()
 		check_box.super.new(self)
 		
-		self.checked = eztask.property.new(false)
+		self.marked = eztask.property.new(false)
+		
+		self:set("active",true)
+		:set("size",lmath.udim2.new(
+			0,mui.layout.check_box.unselected.frame.sprite_size.x,
+			0,mui.layout.check_box.unselected.frame.sprite_size.y
+		))
 		
 		self.frame=gel.new("image_element")
 		:set("name","box")
 		:set("visible",true)
-		:set("active",true)
 		:set("size",lmath.udim2.new(
 			0,mui.layout.check_box.unselected.frame.sprite_size.x,
 			0,mui.layout.check_box.unselected.frame.sprite_size.y
@@ -78,7 +83,7 @@ return function(lumiere,mui)
 		self.multiline        = self.label.multiline
 		
 		self.update_appearance=function()
-			if self.checked.value then
+			if self.marked.value then
 				self.frame:set("rect_offset",mui.layout.check_box.selected.frame.rect_offset)
 				:set("image_color",mui.layout.check_box.selected.frame.color)
 				:set("image_opacity",mui.layout.check_box.selected.frame.opacity)
@@ -105,11 +110,11 @@ return function(lumiere,mui)
 			end
 		end
 		
-		self.checked:attach(self.update_appearance,true)
+		self.marked:attach(self.update_appearance,true)
 		
-		self.frame.selected:attach(function(_,selected)
+		self.selected:attach(function(_,selected)
 			if selected then
-				self.checked.value=not self.checked.value
+				self.marked.value=not self.marked.value
 			end
 		end,true)
 	end
@@ -117,7 +122,7 @@ return function(lumiere,mui)
 	function check_box:delete()
 		check_box.super.delete(self)
 		
-		self.checked:detach()
+		self.marked:detach()
 	end
 	
 	return check_box

@@ -23,14 +23,14 @@ return function(lumiere,mui)
 		self.unselected_container_color   = eztask.property.new(mui.layout.button.unselected.container.color)
 		self.unselected_container_opacity = eztask.property.new(mui.layout.button.unselected.container.opacity)
 		
-		self.active.value=true
-		self.background_opacity.value=0
-		self.image.value=mui.layout.texture
-		self.image_opacity.value=self.unselected_opacity.value
-		self.image_color.value=self.unselected_color.value
-		self.scale_mode.value=gel.enum.scale_mode.slice
-		self.rect_offset.value=mui.layout.button.unselected.rect_offset
-		self.slice_center.value=mui.layout.button.unselected.slice_center
+		self:set("active",true)
+		:set("background_opacity",0)
+		:set("image",mui.layout.texture)
+		:set("image_opacity",self.unselected_opacity.value)
+		:set("image_color",self.unselected_color.value)
+		:set("scale_mode",gel.enum.scale_mode.slice)
+		:set("rect_offset",mui.layout.button.unselected.rect_offset)
+		:set("slice_center",mui.layout.button.unselected.slice_center)
 		
 		self.container=gel.new("element")
 		:set("name","container")
@@ -42,19 +42,21 @@ return function(lumiere,mui)
 		
 		self.update_appearance=function()
 			if self.selected.value then
-				self.rect_offset.value=mui.layout.button.selected.rect_offset
-				self.slice_center.value=mui.layout.button.selected.slice_center
-				self.image_opacity.value=self.selected_opacity.value
-				self.image_color.value=self.selected_color.value
-				self.container.position.value=mui.layout.button.selected.container.position
-				self.container.size.value=mui.layout.button.selected.container.size
+				self:set("rect_offset",mui.layout.button.selected.rect_offset)
+				:set("slice_center",mui.layout.button.selected.slice_center)
+				:set("image_opacity",self.selected_opacity.value)
+				:set("image_color",self.selected_color.value)
+				
+				self.container:set("position",mui.layout.button.selected.container.position)
+				:set("size",mui.layout.button.selected.container.size)
 			else
-				self.rect_offset.value=mui.layout.button.unselected.rect_offset
-				self.slice_center.value=mui.layout.button.unselected.slice_center
-				self.image_opacity.value=self.unselected_opacity.value
-				self.image_color.value=self.unselected_color.value
-				self.container.position.value=mui.layout.button.unselected.container.position
-				self.container.size.value=mui.layout.button.unselected.container.size
+				self:set("rect_offset",mui.layout.button.unselected.rect_offset)
+				:set("slice_center",mui.layout.button.unselected.slice_center)
+				:set("image_opacity",self.unselected_opacity.value)
+				:set("image_color",self.unselected_color.value)
+				
+				self.container:set("position",mui.layout.button.unselected.container.position)
+				:set("size",mui.layout.button.unselected.container.size)
 			end
 		end
 		

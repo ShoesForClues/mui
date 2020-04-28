@@ -13,12 +13,17 @@ return function(lumiere,mui)
 	function radio_button:new()
 		radio_button.super.new(self)
 		
-		self.checked = eztask.property.new(false)
+		self.marked = eztask.property.new(false)
+		
+		self:set("active",true)
+		:set("size",lmath.udim2.new(
+			0,mui.layout.radio_button.unselected.frame.sprite_size.x,
+			0,mui.layout.radio_button.unselected.frame.sprite_size.y
+		))
 		
 		self.frame=gel.new("image_element")
 		:set("name","frame")
 		:set("visible",true)
-		:set("active",true)
 		:set("size",lmath.udim2.new(
 			0,mui.layout.radio_button.unselected.frame.sprite_size.x,
 			0,mui.layout.radio_button.unselected.frame.sprite_size.y
@@ -78,7 +83,7 @@ return function(lumiere,mui)
 		self.multiline        = self.label.multiline
 		
 		self.update_appearance=function()
-			if self.checked.value then
+			if self.marked.value then
 				self.frame:set("rect_offset",mui.layout.radio_button.selected.frame.rect_offset)
 				:set("image_color",mui.layout.radio_button.selected.frame.color)
 				:set("image_opacity",mui.layout.radio_button.selected.frame.opacity)
@@ -94,7 +99,7 @@ return function(lumiere,mui)
 				if self.parent.value then
 					for _,neighbor in pairs(self.parent.value.children) do
 						if neighbor:is(radio_button) and neighbor~=self then
-							neighbor.checked.value=false
+							neighbor.marked.value=false
 						end
 					end
 				end
@@ -113,11 +118,11 @@ return function(lumiere,mui)
 			end
 		end
 		
-		self.checked:attach(self.update_appearance,true)
+		self.marked:attach(self.update_appearance,true)
 		
-		self.frame.selected:attach(function(_,selected)
+		self.selected:attach(function(_,selected)
 			if selected then
-				self.checked.value=not self.checked.value
+				self.marked.value=not self.marked.value
 			end
 		end,true)
 	end
@@ -125,7 +130,7 @@ return function(lumiere,mui)
 	function radio_button:delete()
 		radio_button.super.delete(self)
 		
-		self.checked:detach()
+		self.marked:detach()
 	end
 	
 	return radio_button
