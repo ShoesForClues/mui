@@ -1,5 +1,5 @@
 # MUI
-Modern User Interface
+Modern User Interface built on top of [GEL](https://github.com/ShoesForClues/gel)
 
 This project is work in progress.
 
