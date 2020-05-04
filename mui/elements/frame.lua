@@ -58,11 +58,11 @@ return function(lumiere,mui)
 				self.container:set("position",mui.layout.frame_3.container.position)
 				:set("size",mui.layout.frame_3.container.size)
 			end
-		end,true)
+		end)
 		
 		self.child_added:attach(function(_,object)
 			object.parent.value=self.container
-		end,true)
+		end)
 	end
 	
 	function frame:delete()

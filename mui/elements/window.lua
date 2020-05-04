@@ -82,13 +82,6 @@ return function(lumiere,mui)
 		self.focused:attach(function(_,focused)
 			if focused then
 				if self.parent.value then
-					--[[
-					for _,neighbor in pairs(self.parent.value.children) do
-						if neighbor:is(window) and neighbor~=self then
-							neighbor.focused.value=false
-						end
-					end
-					]]
 					for i=#self.parent.value.children,1,-1 do
 						local neighbor=self.parent.value.children[i]
 						if neighbor:is(window) and neighbor~=self then
@@ -97,25 +90,28 @@ return function(lumiere,mui)
 						end
 					end
 				end
-				self.top_frame.rect_offset.value=mui.layout.window.focused.top_frame.rect_offset
-				self.top_frame.slice_center.value=mui.layout.window.focused.top_frame.slice_center
-				self.top_frame.image_color.value=mui.layout.window.focused.top_frame.color
-				self.top_frame.image_opacity.value=mui.layout.window.focused.top_frame.opacity
-				self.frame.rect_offset.value=mui.layout.window.focused.frame.rect_offset
-				self.frame.slice_center.value=mui.layout.window.focused.frame.slice_center
-				self.frame.image_color.value=mui.layout.window.focused.frame.color
-				self.frame.image_opacity.value=mui.layout.window.focused.frame.opacity
+				
+				self.top_frame:set("rect_offset",mui.layout.window.focused.top_frame.rect_offset)
+				:set("slice_center",mui.layout.window.focused.top_frame.slice_center)
+				:set("image_color",mui.layout.window.focused.top_frame.color)
+				:set("image_opacity",mui.layout.window.focused.top_frame.opacity)
+				
+				self.frame:set("rect_offset",mui.layout.window.focused.frame.rect_offset)
+				:set("slice_center",mui.layout.window.focused.frame.slice_center)
+				:set("image_color",mui.layout.window.focused.frame.color)
+				:set("image_opacity",mui.layout.window.focused.frame.opacity)
 			else
-				self.top_frame.rect_offset.value=mui.layout.window.unfocused.top_frame.rect_offset
-				self.top_frame.slice_center.value=mui.layout.window.unfocused.top_frame.slice_center
-				self.top_frame.image_color.value=mui.layout.window.unfocused.top_frame.color
-				self.top_frame.image_opacity.value=mui.layout.window.unfocused.top_frame.opacity
-				self.frame.rect_offset.value=mui.layout.window.unfocused.frame.rect_offset
-				self.frame.slice_center.value=mui.layout.window.unfocused.frame.slice_center
-				self.frame.image_color.value=mui.layout.window.unfocused.frame.color
-				self.frame.image_opacity.value=mui.layout.window.unfocused.frame.opacity
+				self.top_frame:set("rect_offset",mui.layout.window.unfocused.top_frame.rect_offset)
+				:set("slice_center",mui.layout.window.unfocused.top_frame.slice_center)
+				:set("image_color",mui.layout.window.unfocused.top_frame.color)
+				:set("image_opacity",mui.layout.window.unfocused.top_frame.opacity)
+				
+				self.frame:set("rect_offset",mui.layout.window.unfocused.frame.rect_offset)
+				:set("slice_center",mui.layout.window.unfocused.frame.slice_center)
+				:set("image_color",mui.layout.window.unfocused.frame.color)
+				:set("image_opacity",mui.layout.window.unfocused.frame.opacity)
 			end
-		end,true)
+		end)
 		
 		self.pressed:attach(function()
 			if not self.parent.value then
@@ -123,7 +119,7 @@ return function(lumiere,mui)
 			end
 			self.index.value=#self.parent.value.children
 			self.focused.value=true
-		end,true)
+		end)
 		
 		self.top_frame.pressed:attach(function()
 			if self.drag_event then
@@ -140,11 +136,20 @@ return function(lumiere,mui)
 				)
 				local start_position=self.position.value
 				self.drag_event=gui.cursor_position:attach(function(_,cursor_position)
-					self.position.value=start_position+lmath.udim2.new(
-						0,cursor_position.x-start_cursor.x,
-						0,cursor_position.y-start_cursor.y
+					local parent=self.parent.value
+					local in_parent_bound=(
+						cursor_position.x>=parent.absolute_position.value.x and 
+						cursor_position.y>=parent.absolute_position.value.y and 
+						cursor_position.y<parent.absolute_position.value.x+parent.absolute_size.value.x and 
+						cursor_position.y<parent.absolute_position.value.y+parent.absolute_size.value.y
 					)
-				end,true)
+					if in_parent_bound then
+						self.position.value=start_position+lmath.udim2.new(
+							0,cursor_position.x-start_cursor.x,
+							0,cursor_position.y-start_cursor.y
+						)
+					end
+				end)
 				self.drag_release_event=gui.cursor_released:attach(function()
 					if self.drag_event then
 						self.drag_event:detach()
@@ -154,17 +159,17 @@ return function(lumiere,mui)
 						self.drag_release_event:detach()
 						self.drag_release_event=nil
 					end
-				end,true)
+				end)
 			end
-		end,true)
+		end)
 		
 		self.name:attach(function(_,name)
 			self.title.text.value=name
-		end,true)
+		end)
 		
 		self.parent:attach(function(_,parent)
 			self.focused.value=parent~=nil
-		end,true)
+		end)
 		
 		self.borderless:attach(function(_,borderless)
 			if borderless then
@@ -183,13 +188,13 @@ return function(lumiere,mui)
 					self.container.size.value=mui.layout.window.unfocused.container.size
 				end
 			end
-		end,true)
+		end)
 		
 		self.child_added:attach(function(_,object)
 			if object:is(gel.class.element) then
 				object.parent.value=self.container
 			end
-		end,true)
+		end)
 	end
 	
 	function window:delete()

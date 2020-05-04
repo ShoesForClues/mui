@@ -13,15 +13,11 @@ return function(lumiere,mui)
 	function button:new()
 		button.super.new(self)
 		
-		self.selected_color               = eztask.property.new(mui.layout.button.selected.color)
-		self.selected_opacity             = eztask.property.new(mui.layout.button.selected.opacity)
-		self.selected_container_color     = eztask.property.new(mui.layout.button.selected.container.color)
-		self.selected_container_opacity   = eztask.property.new(mui.layout.button.selected.container.opacity)
+		self.selected_color     = eztask.property.new(mui.layout.button.selected.color)
+		self.selected_opacity   = eztask.property.new(mui.layout.button.selected.opacity)
 		
-		self.unselected_color             = eztask.property.new(mui.layout.button.unselected.color)
-		self.unselected_opacity           = eztask.property.new(mui.layout.button.unselected.opacity)
-		self.unselected_container_color   = eztask.property.new(mui.layout.button.unselected.container.color)
-		self.unselected_container_opacity = eztask.property.new(mui.layout.button.unselected.container.opacity)
+		self.unselected_color   = eztask.property.new(mui.layout.button.unselected.color)
+		self.unselected_opacity = eztask.property.new(mui.layout.button.unselected.opacity)
 		
 		self:set("active",true)
 		:set("background_opacity",0)
@@ -60,15 +56,11 @@ return function(lumiere,mui)
 			end
 		end
 		
-		self.selected:attach(self.update_appearance,true)
-		self.selected_color:attach(self.update_appearance,true)
-		self.selected_opacity:attach(self.update_appearance,true)
-		self.selected_container_color:attach(self.update_appearance,true)
-		self.selected_container_opacity:attach(self.update_appearance,true)
-		self.unselected_color:attach(self.update_appearance,true)
-		self.unselected_opacity:attach(self.update_appearance,true)
-		self.unselected_container_color:attach(self.update_appearance,true)
-		self.unselected_container_opacity:attach(self.update_appearance,true)
+		self.selected:attach(self.update_appearance)
+		self.selected_color:attach(self.update_appearance)
+		self.selected_opacity:attach(self.update_appearance)
+		self.unselected_color:attach(self.update_appearance)
+		self.unselected_opacity:attach(self.update_appearance)
 	end
 	
 	function button:delete()
@@ -76,12 +68,8 @@ return function(lumiere,mui)
 		
 		self.selected_color:detach()
 		self.selected_opacity:detach()
-		self.selected_container_color:detach()
-		self.selected_container_opacity:detach()
 		self.unselected_color:detach()
 		self.unselected_opacity:detach()
-		self.unselected_container_color:detach()
-		self.unselected_container_opacity:detach()
 	end
 	
 	return button

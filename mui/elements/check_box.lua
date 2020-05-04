@@ -110,13 +110,13 @@ return function(lumiere,mui)
 			end
 		end
 		
-		self.marked:attach(self.update_appearance,true)
+		self.marked:attach(self.update_appearance)
 		
 		self.selected:attach(function(_,selected)
 			if selected then
 				self.marked.value=not self.marked.value
 			end
-		end,true)
+		end)
 	end
 	
 	function check_box:delete()

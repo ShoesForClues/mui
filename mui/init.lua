@@ -54,7 +54,7 @@ return function(lumiere,lib_dir)
 	function mui.new(class_name)
 		local class=mui.class[class_name]
 		
-		assert(class,"No class named "..tostring(class_name))
+		--assert(class,"No class named "..tostring(class_name))
 		
 		return class()
 	end

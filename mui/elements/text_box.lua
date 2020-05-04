@@ -64,7 +64,7 @@ return function(lumiere,mui)
 				self.image_opacity.value=mui.layout.text_box.unfocused.opacity
 				self.image_color.value=mui.layout.text_box.unfocused.color
 			end
-		end,true)
+		end)
 	end
 	
 	function text_box:delete()
