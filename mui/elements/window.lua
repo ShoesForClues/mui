@@ -35,7 +35,6 @@ return function(lumiere,mui)
 		:set("scale_mode",gel.enum.scale_mode.slice)
 		:set("rect_offset",mui.layout.window.focused.top_frame.rect_offset)
 		:set("slice_center",mui.layout.window.focused.top_frame.slice_center)
-		:set("clip",true)
 		:set("parent",self)
 		
 		self.title=gel.new("text_element")
@@ -136,19 +135,13 @@ return function(lumiere,mui)
 				)
 				local start_position=self.position.value
 				self.drag_event=gui.cursor_position:attach(function(_,cursor_position)
-					local parent=self.parent.value
-					local in_parent_bound=(
-						cursor_position.x>=parent.absolute_position.value.x and 
-						cursor_position.y>=parent.absolute_position.value.y and 
-						cursor_position.y<parent.absolute_position.value.x+parent.absolute_size.value.x and 
-						cursor_position.y<parent.absolute_position.value.y+parent.absolute_size.value.y
-					)
-					if in_parent_bound then
-						self.position.value=start_position+lmath.udim2.new(
-							0,cursor_position.x-start_cursor.x,
-							0,cursor_position.y-start_cursor.y
-						)
+					if not self.parent.value.targeted.value then
+						return
 					end
+					self.position.value=start_position+lmath.udim2.new(
+						0,cursor_position.x-start_cursor.x,
+						0,cursor_position.y-start_cursor.y
+					)
 				end)
 				self.drag_release_event=gui.cursor_released:attach(function()
 					if self.drag_event then

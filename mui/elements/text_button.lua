@@ -13,6 +13,11 @@ return function(lumiere,mui)
 	function text_button:new()
 		text_button.super.new(self)
 		
+		self.selected_text_color     = eztask.property.new(mui.layout.text_button.selected.text_color)
+		self.selected_text_opacity   = eztask.property.new(mui.layout.text_button.selected.text_opacity)
+		self.unselected_text_color   = eztask.property.new(mui.layout.text_button.unselected.text_color)
+		self.unselected_text_opacity = eztask.property.new(mui.layout.text_button.unselected.text_opacity)
+		
 		self.text_element=gel.new("text_element")
 		:set("name","text_element")
 		:set("visible",true)
@@ -26,7 +31,6 @@ return function(lumiere,mui)
 		:set("text_x_alignment",gel.enum.alignment.x.center)
 		:set("text_y_alignment",gel.enum.alignment.y.center)
 		:set("text_wrapped",true)
-		:set("clip",true)
 		:set("parent",self.container)
 		
 		self.text             = self.text_element.text
@@ -37,6 +41,21 @@ return function(lumiere,mui)
 		self.text_x_alignment = self.text_element.text_x_alignment
 		self.text_y_alignment = self.text_element.text_y_alignment
 		self.text_wrapped     = self.text_element.text_wrapped
+		
+		self.update_appearance:attach(function()
+			if self.selected.value then
+				self.text_element:set("text_color",self.selected_text_color.value)
+				:set("text_opacity",self.selected_text_opacity.value)
+			else
+				self.text_element:set("text_color",self.unselected_text_color.value)
+				:set("text_opacity",self.unselected_text_opacity.value)
+			end
+		end)
+		
+		self.selected_text_color:attach(self.update_appearance)
+		self.selected_text_opacity:attach(self.update_appearance)
+		self.unselected_text_color:attach(self.update_appearance)
+		self.unselected_text_opacity:attach(self.update_appearance)
 	end
 	
 	function text_button:delete()

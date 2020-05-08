@@ -15,6 +15,8 @@ return function(lumiere,mui)
 		
 		self.marked = eztask.property.new(false)
 		
+		self.update_appearance = eztask.signal.new()
+		
 		self:set("active",true)
 		:set("size",lmath.udim2.new(
 			0,mui.layout.radio_button.unselected.frame.sprite_size.x,
@@ -82,7 +84,7 @@ return function(lumiere,mui)
 		self.text_wrapped     = self.label.text_wrapped
 		self.multiline        = self.label.multiline
 		
-		self.update_appearance=function()
+		self.update_appearance:attach(function()
 			if self.marked.value then
 				self.frame:set("rect_offset",mui.layout.radio_button.selected.frame.rect_offset)
 				:set("image_color",mui.layout.radio_button.selected.frame.color)
@@ -116,7 +118,7 @@ return function(lumiere,mui)
 				:set("text_color",mui.layout.radio_button.unselected.label.text_color)
 				:set("text_opacity",mui.layout.radio_button.unselected.label.text_opacity)
 			end
-		end
+		end)
 		
 		self.marked:attach(self.update_appearance)
 		

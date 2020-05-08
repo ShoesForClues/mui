@@ -37,7 +37,6 @@ return function(lumiere,lib_dir)
 		layout   = nil
 	}
 	
-	--Functions
 	function mui.wrap(class_name,method,wrap)
 		local class=mui.class[class_name]
 		
@@ -52,11 +51,12 @@ return function(lumiere,lib_dir)
 	end
 	
 	function mui.new(class_name)
+		--[[
 		local class=mui.class[class_name]
-		
-		--assert(class,"No class named "..tostring(class_name))
-		
+		assert(class,"No class named "..tostring(class_name))
 		return class()
+		]]
+		return mui.class[class_name]()
 	end
 	
 	local function format_layout_section(section,texture_size)
@@ -78,7 +78,7 @@ return function(lumiere,lib_dir)
 	function mui:init(layout_dir)
 		assert(layout_dir,"Cannot initialize without a layout!")
 		
-		local layout=lumiere.platform.file.require(layout_dir..".layout")(lumiere)
+		local layout=lumiere.require(layout_dir..".layout")(lumiere)
 		
 		layout.texture=lumiere.platform.graphics.load_texture(layout_dir.."/"..layout.texture)
 		layout.font.regular=lumiere.platform.graphics.load_font(layout_dir.."/"..layout.font.regular)
@@ -89,14 +89,13 @@ return function(lumiere,lib_dir)
 		mui.layout=layout
 	end
 	
-	--Elements
-	mui.class.frame        = lumiere.platform.file.require(lib_dir..".elements.frame")(lumiere,mui)
-	mui.class.button       = lumiere.platform.file.require(lib_dir..".elements.button")(lumiere,mui)
-	mui.class.text_button  = lumiere.platform.file.require(lib_dir..".elements.text_button")(lumiere,mui)
-	mui.class.text_box     = lumiere.platform.file.require(lib_dir..".elements.text_box")(lumiere,mui)
-	mui.class.check_box    = lumiere.platform.file.require(lib_dir..".elements.check_box")(lumiere,mui)
-	mui.class.radio_button = lumiere.platform.file.require(lib_dir..".elements.radio_button")(lumiere,mui)
-	mui.class.window       = lumiere.platform.file.require(lib_dir..".elements.window")(lumiere,mui)
+	mui.class.frame        = lumiere.require(lib_dir..".elements.frame")(lumiere,mui)
+	mui.class.button       = lumiere.require(lib_dir..".elements.button")(lumiere,mui)
+	mui.class.text_button  = lumiere.require(lib_dir..".elements.text_button")(lumiere,mui)
+	mui.class.text_box     = lumiere.require(lib_dir..".elements.text_box")(lumiere,mui)
+	mui.class.check_box    = lumiere.require(lib_dir..".elements.check_box")(lumiere,mui)
+	mui.class.radio_button = lumiere.require(lib_dir..".elements.radio_button")(lumiere,mui)
+	mui.class.window       = lumiere.require(lib_dir..".elements.window")(lumiere,mui)
 	
 	return mui
 end
