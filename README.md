@@ -1,7 +1,6 @@
 # MUI - Modern User Interface
 MUI is a highly flexible GUI framework written in Lua. Because it is 
-built on top of [GEL](https://github.com/ShoesForClues/gel), that means it is retained and also backend agnostic. 
-
+built on top of [GEL](https://github.com/ShoesForClues/gel), that means it is retained and also backend agnostic.
 This project is still work in progress.
 
 # Supported Implementations
