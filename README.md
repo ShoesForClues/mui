@@ -12,5 +12,4 @@ Below is a list of supported or plan to support backends.
 
 # Screenshots
 <img src="/screenshots/KCO3Mhc.png?raw=true">
-500 windows in LÖVE running at 500 FPS:
 <img src="/screenshots/YLF1VPo.png?raw=true">
